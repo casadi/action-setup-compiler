@@ -1,6 +1,11 @@
 name: 'Set up compiler'
 description: 'Setup compiler.'
 
+inputs:
+  cache-suffix:
+    description: 'Cannot have a common cache within one workflow'
+    required: true
+
 env:
   CONDA_DEFAULT_ENV: __setup_conda
 
@@ -11,7 +16,7 @@ runs:
         uses: actions/cache@v2
         id: compiler-cache
         with:
-          key: setup-compiler-v2
+          key: setup-compiler-v2-${{inputs.cache-suffix}}
           path: /usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}
       - name: Setup conda
         if: steps.compiler-cache.outputs.cache-hit != 'true'
