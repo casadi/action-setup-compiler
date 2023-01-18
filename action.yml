@@ -8,7 +8,7 @@ inputs:
   target:
     description: 'Target'
     default: x86_64
-    required: true
+    required: false
 
 env:
   CONDA_DEFAULT_ENV: __setup_conda
