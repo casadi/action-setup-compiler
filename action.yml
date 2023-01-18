@@ -39,6 +39,8 @@ runs:
         if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'x86_64'
         shell: bash
       - run: |
+             wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.9.sdk.tar.xz
+             sudo tar xf MacOSX10.9.sdk.tar.xz -C /opt
              
              conda install -y -c conda-forge gfortran_osx-arm64==11.3.0 clangxx_osx-arm64==11.1.0 clang_osx-arm64==11.1.0
              
