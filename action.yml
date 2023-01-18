@@ -44,17 +44,24 @@ runs:
              
              conda install -y -c conda-forge gfortran_osx-arm64==11.3.0 clangxx_osx-arm64==11.1.0 clang_osx-arm64==11.1.0
              
+        if: false && steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'arm64'
+        shell: bash
+      - run: |
+             wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.9.sdk.tar.xz
+             sudo tar xf MacOSX10.9.sdk.tar.xz -C /opt
+             
+             conda install -y -c conda-forge c-compiler==1.5.2 cxx-compiler==1.5.2 fortran-compiler==1.5.2
+             
         if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'arm64'
         shell: bash
       - run: |
              echo "CC=/usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}/bin/clang" >> $GITHUB_ENV
              echo "CXX=/usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}/bin/clang++" >> $GITHUB_ENV
              echo "FC=/usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}/bin/gfortran" >> $GITHUB_ENV
-        if: inputs.target == 'x86_64'
         shell: bash
       - run: |
              echo "CC=/usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}/bin/arm64-appple-darwin20.0.0-clang" >> $GITHUB_ENV
              echo "CXX=/usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}/bin/arm64-appple-darwin20.0.0-clang++" >> $GITHUB_ENV
              echo "FC=/usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}/bin/arm64-appple-darwin20.0.0-gfortran" >> $GITHUB_ENV
-        if: inputs.target == 'arm64'
+        if: false && inputs.target == 'arm64'
         shell: bash
