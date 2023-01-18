@@ -36,6 +36,7 @@ runs:
              
              conda install -y -c conda-forge c-compiler==1.1.1 cxx-compiler==1.1.1 fortran-compiler==1.1.1
              
+             echo "SDKROOT=/opt/MacOSX10.9.sdk" >> $GITHUB_ENV
         if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'x86_64'
         shell: bash
       - run: |
@@ -44,6 +45,8 @@ runs:
              
              conda install -y -c conda-forge gfortran_osx-arm64==11.3.0 clangxx_osx-arm64==11.1.0 clang_osx-arm64==11.1.0
              
+             echo "SDKROOT=/opt/MacOSX10.9.sdk" >> $GITHUB_ENV
+             echo "CONDA_BUILD_SYSROOT=/opt/MacOSX10.9.sdk" >> $GITHUB_ENV
         if: false && steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'arm64'
         shell: bash
       - run: |
@@ -52,12 +55,15 @@ runs:
              
              conda install -y -c conda-forge c-compiler==1.5.2 cxx-compiler==1.5.2 fortran-compiler==1.5.2
              
+             echo "SDKROOT=/opt/MacOSX11.1.sdk" >> $GITHUB_ENV
+             echo "CONDA_BUILD_SYSROOT=/opt/MacOSX11.1.sdk" >> $GITHUB_ENV
         if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'arm64'
         shell: bash
       - run: |
              echo "CC=${{env.CONDA_PREFIX}}/bin/clang" >> $GITHUB_ENV
              echo "CXX=${{env.CONDA_PREFIX}}/bin/clang++" >> $GITHUB_ENV
              echo "FC=${{env.CONDA_PREFIX}}/bin/gfortran" >> $GITHUB_ENV
+             
         shell: bash
       - run: |
              echo "CC=${{env.CONDA_PREFIX}}/bin/arm64-appple-darwin20.0.0-clang" >> $GITHUB_ENV
