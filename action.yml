@@ -17,7 +17,7 @@ runs:
   using: "composite"
   steps:
       - name: Cache build dir
-        uses: actions/cache@v2
+        uses: actions/cache@v3.2.3
         id: compiler-cache
         with:
           key: setup-compiler-v2-${{inputs.cache-suffix}}
