@@ -48,11 +48,11 @@ runs:
              echo "CC=/usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}/bin/clang" >> $GITHUB_ENV
              echo "CXX=/usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}/bin/clang++" >> $GITHUB_ENV
              echo "FC=/usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}/bin/gfortran" >> $GITHUB_ENV
-        if: target == 'x86_64'
+        if: inputs.target == 'x86_64'
         shell: bash
       - run: |
              echo "CC=/usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}/bin/arm64-appple-darwin20.0.0-clang" >> $GITHUB_ENV
              echo "CXX=/usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}/bin/arm64-appple-darwin20.0.0-clang++" >> $GITHUB_ENV
              echo "FC=/usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}/bin/arm64-appple-darwin20.0.0-gfortran" >> $GITHUB_ENV
-        if: target == 'arm64'
+        if: inputs.target == 'arm64'
         shell: bash
