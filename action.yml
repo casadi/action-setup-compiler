@@ -47,8 +47,8 @@ runs:
         if: false && steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'arm64'
         shell: bash
       - run: |
-             wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.9.sdk.tar.xz
-             sudo tar xf MacOSX10.9.sdk.tar.xz -C /opt
+             wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.0-11.1/MacOSX11.1.sdk.tar.xz
+             sudo tar xf MacOSX11.1.sdk.tar.xz -C /opt
              
              conda install -y -c conda-forge c-compiler==1.5.2 cxx-compiler==1.5.2 fortran-compiler==1.5.2
              
