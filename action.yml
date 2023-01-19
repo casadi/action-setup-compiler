@@ -10,9 +10,6 @@ inputs:
     default: x86_64
     required: false
 
-env:
-  CONDA_DEFAULT_ENV: __setup_conda
-
 runs:
   using: "composite"
   steps:
@@ -59,9 +56,9 @@ runs:
         if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'arm64'
         shell: bash
       - run: |
-             echo "CC=${{env.CONDA_PREFIX}}/bin/clang" >> $GITHUB_ENV
-             echo "CXX=${{env.CONDA_PREFIX}}/bin/clang++" >> $GITHUB_ENV
-             echo "FC=${{env.CONDA_PREFIX}}/bin/gfortran" >> $GITHUB_ENV
+             echo "CC=${{env.CONDA}}/compiler/bin/clang" >> $GITHUB_ENV
+             echo "CXX=${{env.CONDA}}/compiler/bin/clang++" >> $GITHUB_ENV
+             echo "FC=${{env.CONDA}}/compiler/bin/gfortran" >> $GITHUB_ENV
              
         shell: bash
       - run: |
