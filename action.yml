@@ -22,13 +22,12 @@ runs:
         with:
           key: setup-compiler-v2-${{inputs.cache-suffix}}
           path: /usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}
-      - name: Setup conda
-        if: steps.compiler-cache.outputs.cache-hit != 'true'
-        uses: s-weigand/setup-conda@v1
+      - uses: conda-incubator/setup-miniconda@v2
         with:
-          update-conda: true
+          auto-update-conda: true
           python-version: 3.8
-          conda-channels: anaconda, conda-forge
+          channels: anaconda, conda-forge
+          activate-environment: compiler
       - run: |
              # https://stackoverflow.com/questions/69236331/conda-macos-big-sur-ld-unsupported-tapi-file-type-tapi-tbd-in-yaml-file
              wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.9.sdk.tar.xz
