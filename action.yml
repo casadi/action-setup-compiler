@@ -25,9 +25,13 @@ runs:
           python-version: 3.8
           channels: anaconda, conda-forge
           activate-environment: compiler
-      - run: conda info
+      - run: |
+          conda info
+          env
         shell: bash
-      - run: conda info
+      - run:
+          conda info
+          env
         shell: bash -el {0}
       - run: |
              # https://stackoverflow.com/questions/69236331/conda-macos-big-sur-ld-unsupported-tapi-file-type-tapi-tbd-in-yaml-file
