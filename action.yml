@@ -22,7 +22,7 @@ runs:
         with:
           key: setup-compiler-v2-${{inputs.cache-suffix}}
           path: /usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: conda-incubator/setup-miniconda@v2.2.0
         with:
           auto-update-conda: true
           python-version: 3.8
