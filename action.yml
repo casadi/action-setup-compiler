@@ -28,10 +28,14 @@ runs:
       - run: |
           conda info
           env
+          echo "foo ${{env.CONDA_PREFIX}}"
+          echo "bar $CONDA_PREFIX"
         shell: bash
       - run:
           conda info
           env
+          echo "foo ${{env.CONDA_PREFIX}}"
+          echo "bar $CONDA_PREFIX"
         shell: bash -el {0}
       - run: |
              # https://stackoverflow.com/questions/69236331/conda-macos-big-sur-ld-unsupported-tapi-file-type-tapi-tbd-in-yaml-file
