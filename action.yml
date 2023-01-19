@@ -26,18 +26,6 @@ runs:
           channels: anaconda, conda-forge
           activate-environment: compiler
       - run: |
-          conda info
-          env
-          echo "foo ${{env.CONDA_PREFIX}}"
-          echo "bar $CONDA_PREFIX"
-        shell: bash
-      - run:
-          conda info
-          env
-          echo "foo ${{env.CONDA_PREFIX}}"
-          echo "bar $CONDA_PREFIX"
-        shell: bash -el {0}
-      - run: |
              # https://stackoverflow.com/questions/69236331/conda-macos-big-sur-ld-unsupported-tapi-file-type-tapi-tbd-in-yaml-file
              wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.9.sdk.tar.xz
              sudo tar xf MacOSX10.9.sdk.tar.xz -C /opt
