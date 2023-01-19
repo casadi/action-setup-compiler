@@ -60,10 +60,10 @@ runs:
              echo "CXX=${{env.CONDA}}/compiler/bin/clang++" >> $GITHUB_ENV
              echo "FC=${{env.CONDA}}/compiler/bin/gfortran" >> $GITHUB_ENV
              
-        shell: bash
+        shell: bash -el {0}
       - run: |
              echo "CC=${{env.CONDA_PREFIX}}/bin/arm64-appple-darwin20.0.0-clang" >> $GITHUB_ENV
              echo "CXX=${{env.CONDA_PREFIX}}/bin/arm64-appple-darwin20.0.0-clang++" >> $GITHUB_ENV
              echo "FC=${{env.CONDA_PREFIX}}/bin/arm64-appple-darwin20.0.0-gfortran" >> $GITHUB_ENV
         if: false && inputs.target == 'arm64'
-        shell: bash
+        shell: bash -el {0}
