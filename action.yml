@@ -25,6 +25,10 @@ runs:
           python-version: 3.8
           channels: anaconda, conda-forge
           activate-environment: compiler
+      - run: conda info
+        shell: bash
+      - run: conda info
+        shell: bash -el {0}
       - run: |
              # https://stackoverflow.com/questions/69236331/conda-macos-big-sur-ld-unsupported-tapi-file-type-tapi-tbd-in-yaml-file
              wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.9.sdk.tar.xz
@@ -56,6 +60,7 @@ runs:
         if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'arm64'
         shell: bash
       - run: |
+             source ~/.profile
              echo "CC=${{env.CONDA}}/compiler/bin/clang" >> $GITHUB_ENV
              echo "CXX=${{env.CONDA}}/compiler/bin/clang++" >> $GITHUB_ENV
              echo "FC=${{env.CONDA}}/compiler/bin/gfortran" >> $GITHUB_ENV
