@@ -68,12 +68,11 @@ runs:
         if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'arm64'
         shell: bash
       - run: |
-             source ~/.profile
-             echo "CC=${{env.CONDA}}/compiler/bin/clang" >> $GITHUB_ENV
-             echo "CXX=${{env.CONDA}}/compiler/bin/clang++" >> $GITHUB_ENV
-             echo "FC=${{env.CONDA}}/compiler/bin/gfortran" >> $GITHUB_ENV
+             echo "CC=$CONDA_PREFIX/compiler/bin/clang" >> $GITHUB_ENV
+             echo "CXX=$CONDA_PREFIX/compiler/bin/clang++" >> $GITHUB_ENV
+             echo "FC=$CONDA_PREFIX/compiler/bin/gfortran" >> $GITHUB_ENV
              
-        shell: bash -el {0}
+        shell: bash
       - run: |
              echo "CC=${{env.CONDA_PREFIX}}/bin/arm64-appple-darwin20.0.0-clang" >> $GITHUB_ENV
              echo "CXX=${{env.CONDA_PREFIX}}/bin/arm64-appple-darwin20.0.0-clang++" >> $GITHUB_ENV
