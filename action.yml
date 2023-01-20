@@ -12,13 +12,19 @@ inputs:
 
 runs:
   using: "composite"
+  defaults:
+    run:
+      # Advised per conda-incubator/setup-miniconda
+      shell: bash -el {0}
   steps:
       - name: Cache build dir
         uses: actions/cache@v3.2.3
         id: compiler-cache
         with:
           key: setup-compiler-v2-${{inputs.cache-suffix}}
-          path: /usr/local/miniconda/envs/${{env.CONDA_DEFAULT_ENV}}
+          path: |
+            /usr/local/miniconda/envs
+            /Users/ghrunner/miniconda3/envs
       - uses: conda-incubator/setup-miniconda@v2.2.0
         with:
           auto-update-conda: true
@@ -34,7 +40,6 @@ runs:
              
              echo "SDKROOT=/opt/MacOSX10.9.sdk" >> $GITHUB_ENV
         if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'x86_64'
-        shell: bash
       - run: |
              wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.9.sdk.tar.xz
              sudo tar xf MacOSX10.9.sdk.tar.xz -C /opt
@@ -44,7 +49,6 @@ runs:
              echo "SDKROOT=/opt/MacOSX10.9.sdk" >> $GITHUB_ENV
              echo "CONDA_BUILD_SYSROOT=/opt/MacOSX10.9.sdk" >> $GITHUB_ENV
         if: false && steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'arm64'
-        shell: bash
       - run: |
              wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.0-11.1/MacOSX11.1.sdk.tar.xz
              sudo tar xf MacOSX11.1.sdk.tar.xz -C /opt
@@ -54,16 +58,13 @@ runs:
              echo "SDKROOT=/opt/MacOSX11.1.sdk" >> $GITHUB_ENV
              echo "CONDA_BUILD_SYSROOT=/opt/MacOSX11.1.sdk" >> $GITHUB_ENV
         if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'arm64'
-        shell: bash
       - run: |
              echo "CC=$CONDA_PREFIX/bin/clang" >> $GITHUB_ENV
              echo "CXX=$CONDA_PREFIX/bin/clang++" >> $GITHUB_ENV
              echo "FC=$CONDA_PREFIX/bin/gfortran" >> $GITHUB_ENV
              
-        shell: bash
       - run: |
              echo "CC=${{env.CONDA_PREFIX}}/bin/arm64-appple-darwin20.0.0-clang" >> $GITHUB_ENV
              echo "CXX=${{env.CONDA_PREFIX}}/bin/arm64-appple-darwin20.0.0-clang++" >> $GITHUB_ENV
              echo "FC=${{env.CONDA_PREFIX}}/bin/arm64-appple-darwin20.0.0-gfortran" >> $GITHUB_ENV
         if: false && inputs.target == 'arm64'
-        shell: bash -el {0}
