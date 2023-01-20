@@ -17,7 +17,7 @@ runs:
         uses: actions/cache@v3.2.3
         id: compiler-cache
         with:
-          key: setup-compiler-v2-${{inputs.cache-suffix}}
+          key: setup-compiler-v3-${{inputs.cache-suffix}}
           path: |
             /usr/local/miniconda/envs
       - uses: conda-incubator/setup-miniconda@v2.2.0
