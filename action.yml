@@ -61,6 +61,7 @@ runs:
              echo "CC=$CONDA_PREFIX/bin/clang" >> $GITHUB_ENV
              echo "CXX=$CONDA_PREFIX/bin/clang++" >> $GITHUB_ENV
              echo "FC=$CONDA_PREFIX/bin/gfortran" >> $GITHUB_ENV
+             echo "COMPILER_LIB_SEARCH_PATH=$CONDA_PREFIX/lib" >> $GITHUB_ENV
         shell: bash -el {0}
       - run: |
              echo "CC=${{env.CONDA_PREFIX}}/bin/arm64-appple-darwin20.0.0-clang" >> $GITHUB_ENV
