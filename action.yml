@@ -20,7 +20,6 @@ runs:
           key: setup-compiler-v2-${{inputs.cache-suffix}}
           path: |
             /usr/local/miniconda/envs
-            /Users/ghrunner/miniconda3/envs
       - uses: conda-incubator/setup-miniconda@v2.2.0
         with:
           auto-update-conda: true
