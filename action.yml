@@ -20,7 +20,7 @@ runs:
           key: setup-compiler-v3-${{inputs.cache-suffix}}
           path: |
             /usr/local/miniconda/envs
-      - uses: conda-incubator/setup-miniconda@v2.3.0
+      - uses: conda-incubator/setup-miniconda@v2.2.0
         with:
           auto-update-conda: true
           python-version: 3.8
