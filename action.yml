@@ -35,17 +35,9 @@ runs:
              conda install -y -c conda-forge c-compiler==1.1.1 cxx-compiler==1.1.1 fortran-compiler==1.1.1
              
              echo "SDKROOT=/opt/MacOSX10.9.sdk" >> $GITHUB_ENV
-        if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'x86_64'
-        shell: bash -el {0}
-      - run: |
-             wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.9.sdk.tar.xz
-             sudo tar xf MacOSX10.9.sdk.tar.xz -C /opt
-             
-             conda install -y -c conda-forge gfortran_osx-arm64==11.3.0 clangxx_osx-arm64==11.1.0 clang_osx-arm64==11.1.0
-             
-             echo "SDKROOT=/opt/MacOSX10.9.sdk" >> $GITHUB_ENV
              echo "CONDA_BUILD_SYSROOT=/opt/MacOSX10.9.sdk" >> $GITHUB_ENV
-        if: false && steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'arm64'
+             echo "MACOSX_DEPLOYMENT_TARGET=10.13" >> $GITHUB_ENV
+        if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'x86_64'
         shell: bash -el {0}
       - run: |
              wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.0-11.1/MacOSX11.1.sdk.tar.xz
@@ -55,6 +47,7 @@ runs:
              
              echo "SDKROOT=/opt/MacOSX11.1.sdk" >> $GITHUB_ENV
              echo "CONDA_BUILD_SYSROOT=/opt/MacOSX11.1.sdk" >> $GITHUB_ENV
+             echo "MACOSX_DEPLOYMENT_TARGET=11.0" >> $GITHUB_ENV
         if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'arm64'
         shell: bash -el {0}
       - run: |
