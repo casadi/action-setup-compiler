@@ -29,13 +29,13 @@ runs:
           conda-solver: classic
       - run: |
              # https://stackoverflow.com/questions/69236331/conda-macos-big-sur-ld-unsupported-tapi-file-type-tapi-tbd-in-yaml-file
-             wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.9.sdk.tar.xz
-             sudo tar xf MacOSX10.9.sdk.tar.xz -C /opt
+             wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.13.sdk.tar.xz
+             sudo tar xf MacOSX10.13.sdk.tar.xz -C /opt
              
              conda install -y -c conda-forge c-compiler==1.1.1 cxx-compiler==1.1.1 fortran-compiler==1.1.1
              
-             echo "SDKROOT=/opt/MacOSX10.9.sdk" >> $GITHUB_ENV
-             echo "CONDA_BUILD_SYSROOT=/opt/MacOSX10.9.sdk" >> $GITHUB_ENV
+             echo "SDKROOT=/opt/MacOSX10.13.sdk" >> $GITHUB_ENV
+             echo "CONDA_BUILD_SYSROOT=/opt/MacOSX10.13.sdk" >> $GITHUB_ENV
              echo "MACOSX_DEPLOYMENT_TARGET=10.13" >> $GITHUB_ENV
         if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'x86_64'
         shell: bash -el {0}
