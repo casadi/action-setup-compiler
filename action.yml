@@ -32,17 +32,9 @@ runs:
              wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.13.sdk.tar.xz
              sudo tar xf MacOSX10.13.sdk.tar.xz -C /opt
 
-             conda install -c conda-forge conda-tree
-             conda-tree whoneeds libcxx --tree
-             conda install -y libcxx
-             conda install -y -c conda-forge c-compiler==1.1.1 cxx-compiler==1.1.1 fortran-compiler==1.1.1
-             conda-tree whoneeds libcxx --tree
-             conda-tree whoneeds gmp --tree
-             conda-tree whoneeds mpfr --tree
-             conda-tree whoneeds mpc --tree
-             conda-tree whoneeds libgfortran --tree
-             conda-tree whoneeds libgfortran5 --tree
-             
+             # Note: libgmp 6.3.0 pull in libcxx>=16
+             conda install -y -c conda-forge gmp\<6.3 c-compiler==1.1.1 cxx-compiler==1.1.1 fortran-compiler==1.1.1
+            
              echo "SDKROOT=/opt/MacOSX10.13.sdk" >> $GITHUB_ENV
              echo "CONDA_BUILD_SYSROOT=/opt/MacOSX10.13.sdk" >> $GITHUB_ENV
              echo "MACOSX_DEPLOYMENT_TARGET=10.13" >> $GITHUB_ENV
@@ -52,7 +44,7 @@ runs:
              wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.0-11.1/MacOSX11.1.sdk.tar.xz
              sudo tar xf MacOSX11.1.sdk.tar.xz -C /opt
              
-             conda install -y -c conda-forge c-compiler==1.6.0 cxx-compiler==1.6.0 fortran-compiler==1.6.0 # was 1.5.2
+             conda install -y -c conda-forge gmp\<6.3 c-compiler==1.6.0 cxx-compiler==1.6.0 fortran-compiler==1.6.0 # was 1.5.2
              
              echo "SDKROOT=/opt/MacOSX11.1.sdk" >> $GITHUB_ENV
              echo "CONDA_BUILD_SYSROOT=/opt/MacOSX11.1.sdk" >> $GITHUB_ENV
