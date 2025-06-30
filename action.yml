@@ -37,6 +37,11 @@ runs:
              conda install -y libcxx
              conda install -y -c conda-forge c-compiler==1.1.1 cxx-compiler==1.1.1 fortran-compiler==1.1.1
              conda-tree whoneeds libcxx --tree
+             conda-tree whoneeds gmp --tree
+             conda-tree whoneeds mpfr --tree
+             conda-tree whoneeds mpc --tree
+             conda-tree whoneeds libgfortran --tree
+             conda-tree whoneeds libgfortran5 --tree
              
              echo "SDKROOT=/opt/MacOSX10.13.sdk" >> $GITHUB_ENV
              echo "CONDA_BUILD_SYSROOT=/opt/MacOSX10.13.sdk" >> $GITHUB_ENV
