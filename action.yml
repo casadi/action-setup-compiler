@@ -43,6 +43,7 @@ runs:
              echo "CONDA_BUILD_SYSROOT=/opt/MacOSX10.13.sdk" >> $GITHUB_ENV
              echo "MACOSX_DEPLOYMENT_TARGET=10.13" >> $GITHUB_ENV
              echo "DYLD_PRINT_WARNINGS=0" >> $GITHUB_ENV
+             echo "CONDA_SUBDIR=${{ inputs.target == 'x86_64' && 'osx-64' || 'osx-arm64'  }}" >> $GITHUB_ENV
         if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'x86_64'
         shell: bash -el {0}
       - run: |
@@ -54,6 +55,7 @@ runs:
              echo "SDKROOT=/opt/MacOSX11.1.sdk" >> $GITHUB_ENV
              echo "CONDA_BUILD_SYSROOT=/opt/MacOSX11.1.sdk" >> $GITHUB_ENV
              echo "MACOSX_DEPLOYMENT_TARGET=11.0" >> $GITHUB_ENV
+             echo "CONDA_SUBDIR=${{ inputs.target == 'x86_64' && 'osx-64' || 'osx-arm64'  }}" >> $GITHUB_ENV
         if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'arm64'
         shell: bash -el {0}
       - run: |
