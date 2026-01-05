@@ -34,7 +34,8 @@ runs:
 
              # Note: libgmp 6.3.0 pull in libcxx>=16
              CONDA_SUBDIR=osx-64 conda install -y -c conda-forge libcxx==10.0.1 libgfortran\<10 libgfortran5\<10 c-compiler==1.1.1 cxx-compiler==1.1.1 fortran-compiler==1.1.1 bzip2==1.0.8 iconv
-            
+             conda config --env --set subdir osx-64
+
              echo "SDKROOT=/opt/MacOSX10.13.sdk" >> $GITHUB_ENV
              echo "CONDA_BUILD_SYSROOT=/opt/MacOSX10.13.sdk" >> $GITHUB_ENV
              echo "MACOSX_DEPLOYMENT_TARGET=10.13" >> $GITHUB_ENV
