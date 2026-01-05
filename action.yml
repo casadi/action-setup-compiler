@@ -26,7 +26,7 @@ runs:
           python-version: 3.8
           channels: anaconda, conda-forge
           activate-environment: compiler
-          conda-solver: classic
+          conda-solver: libmamba
         env:
           CONDA_SUBDIR: ${{ inputs.target == 'x86_64' && 'osx-64' || 'osx-arm64'  }}
 
