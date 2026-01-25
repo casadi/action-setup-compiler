@@ -29,34 +29,17 @@ runs:
           conda-solver: libmamba
         env:
           CONDA_SUBDIR: ${{ inputs.target == 'x86_64' && 'osx-64' || 'osx-arm64'  }}
-
-      - run: |
-             # https://stackoverflow.com/questions/69236331/conda-macos-big-sur-ld-unsupported-tapi-file-type-tapi-tbd-in-yaml-file
-             wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.13.sdk.tar.xz
-             sudo tar xf MacOSX10.13.sdk.tar.xz -C /opt
-
-             # Note: libgmp 6.3.0 pull in libcxx>=16
-             conda config --env --set subdir osx-64
-             conda install -y -c conda-forge libcxx==10.0.1 libgfortran\<10 libgfortran5\<10 c-compiler==1.1.1 cxx-compiler==1.1.1 fortran-compiler==1.1.1 bzip2==1.0.8 iconv
-
-             echo "SDKROOT=/opt/MacOSX10.13.sdk" >> $GITHUB_ENV
-             echo "CONDA_BUILD_SYSROOT=/opt/MacOSX10.13.sdk" >> $GITHUB_ENV
-             echo "MACOSX_DEPLOYMENT_TARGET=10.13" >> $GITHUB_ENV
-             echo "DYLD_PRINT_WARNINGS=0" >> $GITHUB_ENV
-             echo "CONDA_SUBDIR=${{ inputs.target == 'x86_64' && 'osx-64' || 'osx-arm64'  }}" >> $GITHUB_ENV
-        if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'x86_64'
-        shell: bash -el {0}
       - run: |
              wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.0-11.1/MacOSX11.1.sdk.tar.xz
              sudo tar xf MacOSX11.1.sdk.tar.xz -C /opt
-             conda config --env --set subdir osx-arm64
+             conda config --env --set subdir ${{ inputs.target == 'x86_64' && 'osx-64' || 'osx-arm64'  }} osx-arm64
              conda install -y -c conda-forge libcxx==16.0.6 libgfortran\<13 libgfortran5\<13 c-compiler==1.6.0 cxx-compiler==1.6.0 fortran-compiler==1.6.0 bzip2==1.0.8 # was 1.5.2
              
              echo "SDKROOT=/opt/MacOSX11.1.sdk" >> $GITHUB_ENV
              echo "CONDA_BUILD_SYSROOT=/opt/MacOSX11.1.sdk" >> $GITHUB_ENV
              echo "MACOSX_DEPLOYMENT_TARGET=11.0" >> $GITHUB_ENV
              echo "CONDA_SUBDIR=${{ inputs.target == 'x86_64' && 'osx-64' || 'osx-arm64'  }}" >> $GITHUB_ENV
-        if: steps.compiler-cache.outputs.cache-hit != 'true' && inputs.target == 'arm64'
+        if: steps.compiler-cache.outputs.cache-hit != 'true'
         shell: bash -el {0}
       - run: |
              echo "CC=$CONDA_PREFIX/bin/clang" >> $GITHUB_ENV
