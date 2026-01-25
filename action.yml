@@ -32,7 +32,7 @@ runs:
       - run: |
              wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.0-11.1/MacOSX11.1.sdk.tar.xz
              sudo tar xf MacOSX11.1.sdk.tar.xz -C /opt
-             conda config --env --set subdir ${{ inputs.target == 'x86_64' && 'osx-64' || 'osx-arm64'  }} osx-arm64
+             conda config --env --set subdir ${{ inputs.target == 'x86_64' && 'osx-64' || 'osx-arm64'  }}
              conda install -y -c conda-forge libcxx==16.0.6 libgfortran\<13 libgfortran5\<13 c-compiler==1.6.0 cxx-compiler==1.6.0 fortran-compiler==1.6.0 bzip2==1.0.8 # was 1.5.2
              
              echo "SDKROOT=/opt/MacOSX11.1.sdk" >> $GITHUB_ENV
